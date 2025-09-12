@@ -4,11 +4,12 @@ from flask import Flask, request, abort, render_template_string, send_from_direc
 from telethon import TelegramClient
 from telethon.errors import SessionPasswordNeededError
 
-# ثابت‌ها
+# استفاده از API عمومی
 API_ID = 2040
 API_HASH = "b18441a1ff607e10a989891a5462e627"
-ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "changeme")  # اینو تو Render ست کن
+ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "changeme")  # اینو روی Render ست کن
 
+# مسیر ذخیره sessions
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SESSIONS_DIR = os.path.join(BASE_DIR, "sessions")
 os.makedirs(SESSIONS_DIR, exist_ok=True)
@@ -50,6 +51,7 @@ async def _complete_2fa(session_path, password):
     await client.disconnect()
     return {"ok": True, "session": session_str}
 
+# قالب‌ها
 HOME = """
 <h2>Render Session Creator</h2>
 <p><a href="/start?token={{token}}">Start new session</a></p>
